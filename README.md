@@ -32,10 +32,13 @@ browser can't drive reliably for an unattended daily job.
   enough on its own to accept a listing - unlike the category-scoped
   Aeronca/Extra/Great Lakes repos, a headline search can surface unrelated ads
   that merely mention "Legend" in passing. Every surviving title must also
-  name the **Legend Cub**, **Super Legend Cub**, or **Texas Sport Cub** model,
-  or the **AL3** type-certificate code (optionally with its horsepower/engine
-  variant suffix, e.g. `AL3-100`) - see `_MODEL_CODE_RE`/`_MODEL_NAME_RULES` in
-  `scraper/barnstormers.py`. Every surviving listing's title is rewritten to a
+  name the **Legend Cub**, **Super Legend Cub**, or **Texas Sport Cub** model;
+  the **AL3** type-certificate code (optionally with its horsepower/engine
+  variant suffix, e.g. `AL3-100`); or the **AL18**/**AL-18** code or its
+  factory nickname **MOAC** ("Mother Of All Cubs", American Legend's larger
+  non-LSA Cub variant) - see `_AL3_RE`/`_AL18_RE`/`_MOAC_RE`/
+  `_MODEL_NAME_RULES` in `scraper/barnstormers.py`. Every surviving listing's
+  title is rewritten to a
   canonical **`YEAR Legend MODEL`** form when the ad states a model year (e.g.
   `2015 Legend Cub`, `2018 Legend Super Cub`), or just **`Legend MODEL`** when
   it doesn't - a missing year isn't disqualifying, since plenty of genuine ads

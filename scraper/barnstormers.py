@@ -53,7 +53,14 @@ GENERIC_SITE_TITLE_SNIPPET = "barnstormers.com find aircraft"
 # horsepower/engine variant suffix Barnstormers sellers often append
 # ("AL3-100", "AL3-115", "AL3-125"), written with or without a
 # space/hyphen before the digits.
-_MODEL_CODE_RE = re.compile(r"\bal3[\s-]?(\d{2,3})?\b", re.IGNORECASE)
+_AL3_RE = re.compile(r"\bal3[\s-]?(\d{2,3})?\b", re.IGNORECASE)
+
+# The AL18 - American Legend's larger, non-LSA Cub variant, factory-
+# marketed as the "MOAC" ("Mother Of All Cubs") - identified by either the
+# AL18/AL-18 type code or the bare "MOAC" nickname, since sellers commonly
+# use just one or the other.
+_AL18_RE = re.compile(r"\bal[\s-]?18\b", re.IGNORECASE)
+_MOAC_RE = re.compile(r"\bmoac\b", re.IGNORECASE)
 
 # Named models, longest/most-specific first so "Super Legend Cub" isn't
 # shadowed by the shorter "Legend Cub". Mapped to just the distinguishing
@@ -68,7 +75,9 @@ _MODEL_NAME_RULES = [
 
 
 def _extract_model(title: str) -> tuple[str, str] | None:
-    match = _MODEL_CODE_RE.search(title)
+    if _AL18_RE.search(title) or _MOAC_RE.search(title):
+        return MAKE, "AL18 MOAC"
+    match = _AL3_RE.search(title)
     if match:
         hp = match.group(1)
         model = "AL3"
